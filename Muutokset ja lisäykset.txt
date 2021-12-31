@@ -1,0 +1,27 @@
+//Stored procedure elokuvien hakuun näyttelijän nimellä
+DELIMITER //
+
+CREATE PROCEDURE getTitlesByActor(
+    IN actor VARCHAR(30)
+)
+
+BEGIN
+    SELECT original_title
+    FROM Names_ AS N, Had_role AS H, Titles AS T
+    WHERE N.name_ LIKE CONCAT('%', actor, '%')
+    AND T.title_id = H.title_id
+    AND N.name_id = H.name_id
+    LIMIT 10;
+
+END //
+
+DELIMITER ;
+
+//indeksi luotu titles taululle Original_title_index
+//indeksi luotu names_ taululle name_index
+
+
+
+kansiossa kuvat indexien luomisesta, en ole varma menikö oikein. 
+Sivu on hidas, mutta tekee sen mitä oli tarkoituksenakin.
+Olisin halunnut vielä järjestää elokuvat järjestykseen arvosteluiden perusteella, mutta haku ei menny phpmyadminissa läpi, koska kesti liian kauan. 
